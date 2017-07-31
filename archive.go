@@ -63,6 +63,8 @@ func decoder(name string, f io.Reader) (FileIterator, error) {
 	} else if strings.HasSuffix(name, ".tar") {
 		tarReader := archive_tar.NewReader(f)
 		return TarIterator{reader: tarReader}, nil
+	} else if strings.HasSuffix(name, ".zip") {
+		return NewZipFile(f)
 	}
 	return nil, errors.New("unsupported file")
 }
